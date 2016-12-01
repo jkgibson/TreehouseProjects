@@ -16,19 +16,60 @@ var quotes = [
 	}
 ]
 */
+var quotes = [
+	{
+		quote: 		"John is awesome",
+		source: 	"John Gibson",
+		citation: 	"John's Book of Awesomeness",
+		year: 		"2016"
+	},
+	{
+		quote: 		"John is awesomer",
+		source: 	"Drake Gibson",
+		citation: 	"Drake's Book of Awesomeness",
+		year: 		"2016"
+	},
+	{
+		quote: 		"John is awesomest",
+		source: 	"Amy Gibson",
+		citation: 	"Amy's Book of Awesomeness",
+		year: 		"2016"
+	},
+	{
+		quote: 		"John is awesomest bro",
+		source: 	"Stephanie Gibson",
+		citation: 	"Stephanie's Book of Awesomeness",
+		year: 		"2016"
+	}
 
+]
 
 
 /*
-TODO: getRandomQuote: return a random quote from the array
+getRandomQuote: return a random quote from the array
 Parameters: None
 Return: random quote from the array
 */
 
+//Grabbed this function from MDN
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+function getRandomQuote() {
+	ran_quote_pos = getRandomIntInclusive(0, quotes.length);
+	return quotes[ran_quote_pos];
+
+}
+
+console.log(getRandomQuote)
 /*
 TODO: printQuote: prints the quote by
 	1) call the getRandomQuote function and store returned quote object in a variable
-	2) construct a strinf containing teh properties of the quote object using the
+	2) construct a string containing the properties of the quote object using the
 	following HTML template:
 
 	<p class="quote"> [quote here] </p>
@@ -46,7 +87,15 @@ TODO: printQuote: prints the quote by
 	   log the quote to the console each time the “Show Another Quote” button is clicked.
 	7) Refresh the quote after say..30 sec.
 */
-
+function printQuote() {
+	var quote = getRandomQuote();
+	var quote_body = "<p class='quote'>" + quote.quote + "</p>";
+	var source = "<p class = 'source'>" + quote.source;
+	var citation = "<span class='citation'>" + quote.citation + "</span>";
+	var year = "<span class='year'>" + quote.year + "</span>";
+	var HTML_temp = quote_body.concat(source, citation,year,"</p>");
+	return HTML_temp;
+}
 
 
 
@@ -61,5 +110,5 @@ TODO: printQuote: prints the quote by
 
 // event listener to respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, the "printQuote" function is called
-document.getElementById('loadQuote').addEventListener("click", printQuote, false);
+//document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
