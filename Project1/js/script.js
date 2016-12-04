@@ -32,16 +32,13 @@ var quotes = [
 	{
 		quote: 		"John is awesomest",
 		source: 	"Amy Gibson",
-		citation: 	"",
 		year: "2016"
 	},
 	{
 		quote: 		"John is awesomest bro",
 		source: 	"Stephanie Gibson",
-		citation: 	"Stephanie's Book of Awesomeness",
-		year:       ""
+		citation: 	"Stephanie's Book of Awesomeness"
 	}
-
 ]
 
 
@@ -52,16 +49,32 @@ Return: random quote from the array
 */
 
 //Grabbed this function from MDN
-function getRandomIntInclusive(min, max) {
-  var min = Math.ceil(min);
-  var max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// function getRandomIntInclusive(min, max) {
+//   var min = Math.ceil(min);
+//   var max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
 
 
 function getRandomQuote() {
-	var ran_quote_pos = getRandomIntInclusive(0, quotes.length);
+	var ran_quote_pos = 0;
+	var ran_quote_pos = Math.floor(Math.random() * (quotes.length));
 	return quotes[ran_quote_pos];
+}
+
+function getRandomColor() {
+	return Math.random() * 256;
+}
+
+function randomBackColor() {
+	var red = 0;
+	var green = 0;
+	var blue = 0;
+	red = getRandomColor();
+	blue = getRandomColor();
+	green = getRandomColor();
+	rgbBack = 'rgb(' + red + ',' + green + ',' + blue + ')';
+	document.body.style.background = rgbBack;
 }
 
 //console.log(getRandomQuote)
@@ -93,30 +106,33 @@ function print(message) {
 }
 
 function printQuote() {
-	var text = getRandomQuote();
-	if (text.citation === "" || text.year === "") {
-		print("<p class='quote'>" + "You didn't include a year or citation!</p>");
+	var quote = getRandomQuote();
+	if (Object.keys(quote).length < 4) {
+		if (quote.hasOwnProperty("year") === false) {
+			var quote_body = "<p class='quote'>" + quote.quote + "</p>";
+			var source = "<p class='source'>" + quote.source;
+			var citation = "<span class='citation'>" + quote.citation + "</span>";
+			var HTML_temp = quote_body.concat(source, citation, "</p>");
+		} else if (quote.hasOwnProperty("citation") === false) {
+			var quote_body = "<p class='quote'>" + quote.quote + "</p>";
+			var source = "<p class='source'>" + quote.source;
+			var year = "<span class='year'>" + quote.year + "</span>";
+			var HTML_temp = quote_body.concat(source, year,"</p>");
+		} else {
+			var quote_body = "<p class='quote'>" + quote.quote + "</p>";
+			var source = "<p class='source'>" + quote.source;
+			var HTML_temp = quote_body.concat(source, "</p>");
+		}
 	} else {
-		var text_body = "<p class='quote'>" + text.quote + "</p>";
-		var source = "<p class='source'>" + text.source;
-		var citation = "<span class='citation'>" + text.citation + "</span>";
-		var year = "<span class='year'>" + text.year + "</span>";
-		var HTML_temp = text_body.concat(source, citation,year,"</p>");
-		print(HTML_temp);
+		var quote_body = "<p class='quote'>" + quote.quote + "</p>";
+		var source = "<p class='source'>" + quote.source;
+		var citation = "<span class='citation'>" + quote.citation + "</span>";
+		var year = "<span class='year'>" + quote.year + "</span>";
+		var HTML_temp = quote_body.concat(source, citation, year, "</p>");
 	}
+	print(HTML_temp);
+	randomBackColor();
 }
-
-
-
-
-//document.getElementById('quote-box').innerHTML;
-
-
-
-
-
-
-
 
 
 // event listener to respond to "Show another quote" button clicks
