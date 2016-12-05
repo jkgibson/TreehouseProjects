@@ -18,48 +18,66 @@ var quotes = [
 */
 var quotes = [
 	{
-		quote: 		"John is awesome",
-		source: 	"John Gibson",
-		citation: 	"John's Book of Awesomeness",
-		year: 		"2016"
+		quote: 		"Two things are inifinite: the universe and human stupidity; and I'm not sure about the universe.",
+		source: 	"Albert Einstein",
+		citation: 	"Ego, Hunger and Aggression: a Revision of Freud's Theory and Method",
+		year: 		"1920"
 	},
 	{
-		quote: 		"John is awesomer",
-		source: 	"Drake Gibson",
-		citation: 	"Drake's Book of Awesomeness",
-		year: 		"2016"
+		quote: 		"There is no law except the law there is no law.",
+		source: 	"John Archibald Wheeler",
+		year: 		"1955"
 	},
 	{
-		quote: 		"John is awesomest",
-		source: 	"Amy Gibson",
-		year: "2016"
+		quote: 		"Falsity in intelelctual action is intellectual immaturity.",
+		source: 	"Thomas Chamberlain",
+		year: "1888"
 	},
 	{
-		quote: 		"John is awesomest bro",
-		source: 	"Stephanie Gibson",
-		citation: 	"Stephanie's Book of Awesomeness"
+		quote: 		"The saddest aspect of life right now is that it gathers knowledge faster than socity gathers wisdom.",
+		source: 	"Isaac Asimov",
+		year: 	"1981"
+	},
+	{
+		quote: 		"A man who dares to waste on hour of time has not discovered the value of life.",
+		source: 	"Charled Darwin",
+		year: 	"1865"
+	},
+	{
+		quote: 		"The good thing about science is that it's true wheter or not you believe in it.",
+		source: 	"Neil Degrasse Tyson",
+		citation: "Twitter",
+		year: 	"2014"
 	}
 ]
 
-
-/*
-getRandomQuote: return a random quote from the array
-Parameters: None
-Return: random quote from the array
-*/
-
-//Grabbed this function from MDN
-// function getRandomIntInclusive(min, max) {
-//   var min = Math.ceil(min);
-//   var max = Math.floor(max);
-//   return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
-
+var quote_count = [];
 
 function getRandomQuote() {
 	var ran_quote_pos = 0;
 	var ran_quote_pos = Math.floor(Math.random() * (quotes.length));
 	return quotes[ran_quote_pos];
+}
+
+function getQuote() {
+	var quote;
+	if (quote_count.length < quotes.length) {
+		quote = getRandomQuote();
+		while (quote_count.indexOf(quote) === -1) {
+			if (quote_count.indexOf(quote) === -1) {
+				quote_count.push(quote);
+				console.log(quote);
+				return quote;
+			}
+			quote =getRandomQuote();
+		}
+		console.log(quote);
+		return quote;
+	} else {
+		quote = getRandomQuote();
+		console.log(quote);
+		return quote;
+	}
 }
 
 function getRandomColor() {
@@ -106,7 +124,7 @@ function print(message) {
 }
 
 function printQuote() {
-	var quote = getRandomQuote();
+	var quote = getQuote();
 	if (Object.keys(quote).length < 4) {
 		if (quote.hasOwnProperty("year") === false) {
 			var quote_body = "<p class='quote'>" + quote.quote + "</p>";
@@ -131,6 +149,7 @@ function printQuote() {
 		var HTML_temp = quote_body.concat(source, citation, year, "</p>");
 	}
 	print(HTML_temp);
+
 	randomBackColor();
 }
 
