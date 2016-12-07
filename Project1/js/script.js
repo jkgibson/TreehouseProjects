@@ -51,37 +51,28 @@ var quotes = [
 	}
 ]
 
-var quote_count = [];
+var viewed_quotes = [];
 
-function getRandomQuote() {
-	var ran_quote_pos = 0;
-	var ran_quote_pos = Math.floor(Math.random() * (quotes.length));
-	return quotes[ran_quote_pos];
+function getRandomIndex() {
+	var randomIndex = Math.floor(Math.random() * quotes.length);
+	return randomIndex;
 }
 
 function getQuote() {
-	var quote;
-	if (quote_count.length < quotes.length) {
-		quote = getRandomQuote();
-		while (quote_count.indexOf(quote) === -1) {
-			if (quote_count.indexOf(quote) === -1) {
-				quote_count.push(quote);
-				console.log(quote);
-				return quote;
-			}
-			quote =getRandomQuote();
-		}
-		console.log(quote);
-		return quote;
-	} else {
-		quote = getRandomQuote();
-		console.log(quote);
-		return quote;
+	if (quotes.length === 0) {				//if quotes array is empty
+		quotes = viewed_quotes;  			//repopulate it with the viewed quotes array
+		viewed_quotes = [];					//reset viewed_quotes array
 	}
+	randomIndex = getRandomIndex();
+	splicedQuote = quotes.splice(randomIndex,1)[0];  //remove a random quote from the quotes array, put the object in splicedQuote
+	viewed_quotes.push(splicedQuote);				//push that quote unto the viewed_quotes array
+
+	console.log(splicedQuote);
+	return splicedQuote;
 }
 
 function getRandomColor() {
-	return Math.random() * 256;
+	return Math.floor(Math.random() * 256);
 }
 
 function randomBackColor() {
@@ -89,10 +80,10 @@ function randomBackColor() {
 	var green = 0;
 	var blue = 0;
 	red = getRandomColor();
-	blue = getRandomColor();
 	green = getRandomColor();
+	blue = getRandomColor();
 	rgbBack = 'rgb(' + red + ',' + green + ',' + blue + ')';
-	document.body.style.background = rgbBack;
+	document.body.style.backgroundColor = rgbBack;
 }
 
 //console.log(getRandomQuote)
@@ -111,8 +102,8 @@ TODO: printQuote: prints the quote by
 	3) printQuote doesn't print if there is a missing citation or if year property is mssing
 	4) will display the final HTML to the page. Use the following JS snippet to accomplish it:
 		document.getElementById('quote-box').innerHTML
-	5) TODO: When quote changes, randomly change background color of page.
-	6) TODO: Don't display a random quote more than once until ALL quotes from the array have been displayed.
+	5) When quote changes, randomly change background color of page.
+	6) Don't display a random quote more than once until ALL quotes from the array have been displayed.
 	   To help reviewers (and yourself) verify that the quotes don’t repeat until they’ve all been displayed,
 	   log the quote to the console each time the “Show Another Quote” button is clicked.
 	7) TODO: Refresh the quote after say..30 sec.
@@ -148,9 +139,8 @@ function printQuote() {
 		var year = "<span class='year'>" + quote.year + "</span>";
 		var HTML_temp = quote_body.concat(source, citation, year, "</p>");
 	}
-	print(HTML_temp);
-
 	randomBackColor();
+	print(HTML_temp);
 }
 
 
