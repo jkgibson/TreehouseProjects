@@ -21,33 +21,39 @@ var quotes = [
 		quote: 		"Two things are inifinite: the universe and human stupidity; and I'm not sure about the universe.",
 		source: 	"Albert Einstein",
 		citation: 	"Ego, Hunger and Aggression: a Revision of Freud's Theory and Method",
-		year: 		"1920"
+		year: 		"1920",
+		tags: 		['science','humor']
 	},
 	{
 		quote: 		"There is no law except the law there is no law.",
 		source: 	"John Archibald Wheeler",
-		year: 		"1955"
+		year: 		"1955",
+		tags:       ['wisdom']
 	},
 	{
 		quote: 		"Falsity in intelelctual action is intellectual immaturity.",
 		source: 	"Thomas Chamberlain",
-		year: "1888"
+		year: 		"1888",
+		tags: 		['wisdom']
 	},
 	{
 		quote: 		"The saddest aspect of life right now is that it gathers knowledge faster than socity gathers wisdom.",
 		source: 	"Isaac Asimov",
-		year: 	"1981"
+		year: 		"1981",
+		tags: 		['wisdom','science']
 	},
 	{
 		quote: 		"A man who dares to waste on hour of time has not discovered the value of life.",
-		source: 	"Charled Darwin",
-		year: 	"1865"
+		source: 	"Charles Darwin",
+		year: 		"1865",
+		tags: 		['wisdom']
 	},
 	{
 		quote: 		"The good thing about science is that it's true wheter or not you believe in it.",
 		source: 	"Neil Degrasse Tyson",
-		citation: "Twitter",
-		year: 	"2014"
+		citation:   "Twitter",
+		year: 		"2014",
+		tags: 		['wisdom', 'science', 'humor']
 	}
 ]
 
@@ -106,7 +112,8 @@ TODO: printQuote: prints the quote by
 	6) Don't display a random quote more than once until ALL quotes from the array have been displayed.
 	   To help reviewers (and yourself) verify that the quotes don’t repeat until they’ve all been displayed,
 	   log the quote to the console each time the “Show Another Quote” button is clicked.
-	7) TODO: Refresh the quote after say..30 sec.
+	7) Refresh the quote after say..30 sec.
+	8) Add another property to the quotes object
 */
 
 function print(message) {
@@ -116,28 +123,32 @@ function print(message) {
 
 function printQuote() {
 	var quote = getQuote();
-	if (Object.keys(quote).length < 4) {
+	if (Object.keys(quote).length < 5) {
 		if (quote.hasOwnProperty("year") === false) {
 			var quote_body = "<p class='quote'>" + quote.quote + "</p>";
 			var source = "<p class='source'>" + quote.source;
 			var citation = "<span class='citation'>" + quote.citation + "</span>";
-			var HTML_temp = quote_body.concat(source, citation, "</p>");
+			var tags = "<span class='tags'>" + quote.tags + "</span>";
+			var HTML_temp = quote_body.concat(source, citation, tags, "</p>");
 		} else if (quote.hasOwnProperty("citation") === false) {
 			var quote_body = "<p class='quote'>" + quote.quote + "</p>";
 			var source = "<p class='source'>" + quote.source;
 			var year = "<span class='year'>" + quote.year + "</span>";
-			var HTML_temp = quote_body.concat(source, year,"</p>");
+			var tags = "<span class='tags'>" + quote.tags + "</span>";
+			var HTML_temp = quote_body.concat(source, year, tags, "</p>");
 		} else {
 			var quote_body = "<p class='quote'>" + quote.quote + "</p>";
 			var source = "<p class='source'>" + quote.source;
-			var HTML_temp = quote_body.concat(source, "</p>");
+			var tags = "<span class='tags'>" + quote.tags + "</span>";
+			var HTML_temp = quote_body.concat(source,tags, "</p>");
 		}
 	} else {
 		var quote_body = "<p class='quote'>" + quote.quote + "</p>";
 		var source = "<p class='source'>" + quote.source;
 		var citation = "<span class='citation'>" + quote.citation + "</span>";
 		var year = "<span class='year'>" + quote.year + "</span>";
-		var HTML_temp = quote_body.concat(source, citation, year, "</p>");
+		var tags = "<span class='tags'>" + quote.tags + "</span>";
+		var HTML_temp = quote_body.concat(source, citation, year, tags, "</p>");
 	}
 	randomBackColor();
 	print(HTML_temp);
@@ -148,3 +159,4 @@ function printQuote() {
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
+window.setInterval(printQuote, 30000);
