@@ -51,33 +51,30 @@ var quotes = [
 	}
 ]
 
-var quote_count = [];
 
-function getRandomQuote() {
-	var ran_quote_pos = 0;
-	var ran_quote_pos = Math.floor(Math.random() * (quotes.length));
-	return quotes[ran_quote_pos];
+
+function getRandomIndex() {
+	var random_index = 0;
+	var random_index = Math.floor(Math.random() * (quotes.length));
+	return random_index;
 }
 
+
+var quote_count = [];
+
+
 function getQuote() {
-	var quote;
-	if (quote_count.length < quotes.length) {
-		quote = getRandomQuote();
-		while (quote_count.indexOf(quote) === -1) {
-			if (quote_count.indexOf(quote) === -1) {
-				quote_count.push(quote);
-				console.log(quote);
-				return quote;
-			}
-			quote =getRandomQuote();
-		}
-		console.log(quote);
-		return quote;
-	} else {
-		quote = getRandomQuote();
-		console.log(quote);
-		return quote;
+	var random_index = getRandomIndex();
+	var spliceQuote = quotes.splice(random_index,1)[0]; //remove a quote element from the quotes array. Subscript it using zero as the index to convert it to a quote object.
+	quote_count.push(spliceQuote);                      //put it on the count of quotes viewed
+
+	if (quotes.length === 0) {                        //if we have gone through all of our quotes
+		quotes = quote_count; 						  //put our quotes back into quotes from quote_count
+		quote_count = [];							  //reinitialize quote count
 	}
+
+	console.log(spliceQuote);
+	return spliceQuote;	
 }
 
 function getRandomColor() {
