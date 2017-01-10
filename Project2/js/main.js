@@ -1,4 +1,4 @@
-//Problem:  When the page loads, hide all but the first 10 students on the list. 
+//Problem:  When the page loads, hide all but the first 10 students on the list.
 //          Add pagination to the bottom of the page.
 //			Add filtered search option
 
@@ -8,17 +8,22 @@
 	//Calculate the number of pages needed
 		//Traverse the DOM and count how many li elements are in the .student-list class
 		//Store the count of list elements in a variable
-		var numStudents = $(".student-list li").length;
+		var students = document.getElementsByTagName("li");
+		var numStudents = students.length;
 		//Divide the count result by 10 to get the number of pages
 		var numPages = Math.ceil(numStudents/10);
 		console.log(numPages);
-	//Initialize a variable to show what current page we are on	
-		
+	//Initialize a variable to show what current page we are on
+		var currentPage = 1;
 	//Iterate over every student item in the student list and hide them
-
+		for(var i = 0; i < numStudents; i++) {
+			students[i].style.display = "none";
+		}
 	//Starting on the current page, uncover (display) ten items
+		for(var i = 0; i < 10; i++) {
+			students[i].style.display = "block";
+		}
 
-	
 	//Create the pagination unordered list (create the ul element)
 		//Iterate through the number of pages that we have
 			//Create a list element
@@ -30,16 +35,16 @@
 				//Set the page number text to current loop value
 
 				//Append the anchor to the li element
-			//Append the list element 
-	
-	//Show the pagination HTML	
-	
-//Create event on click of page number 
+			//Append the list element
+
+	//Show the pagination HTML
+
+//Create event on click of page number
 	//The page number has been clicked, so it's the current active page
-		
 
 
-	
+
+
 
 //Include a search plugin so the list of students is filtered to match the search.
 
