@@ -16,8 +16,31 @@
 	//Initialize a variable to show what current page we are on
 		var currentPage = 1;
 	
-	//Create a displayPage function to create the page
-	function displayPage() {
+	//Create a pagination function to do the pagination
+	var paginator = function(){
+		//Create the pagination div
+		var pagination = document.createElement("div");
+		//Create the pagination unordered list (create the ul element)
+		var ul = document.createElement("ul");
+		//Create a list element
+		var list = document.createElement("li");
+		//Create an anchor element
+		var anchor = document.createElement("a");
+
+		//Set the pagination class on the pagination div
+		pagination.setAttribute("class", "pagination");
+		//Set attribute values for the anchor tag
+		anchor.setAttribute("href", "#");
+
+		//Append the unordered list to the pagination div
+		pagination_div.appendChild(ul);
+		//Append the list element to the unordered list	
+		ul.appendChild(list);
+		//Append the anchor to the li element
+		list.appendChild(anchor);
+
+	}
+
 		//Iterate over every student item in the student list and hide them
 		//for(var i = 0; i < numStudents; i++) {
 		//	students[i].style.display = "none";
@@ -27,36 +50,30 @@
 		//for(var i = 0; i < 10; i++) {
 		//	students[i].style.display = "block";
 		//}
-
-		//Create the pagination unordered list (create the ul element)
-		var ul = document.createElement("ul");
-		console.log(ul);
+ 		
+ 		
 			//Iterate through the number of pages that we have
 			for(var i = 0; i < numPages; i++) {
-				//Create a list element
-				var list = document.createElement("li");
-					//Create an anchor element
-					var anchor = document.createElement("a");				
-					//Set attribute values for the anchor tag
-					anchor.setAttribute("href", "#")
+				
+				
+								
+					/
 					//If we are on the current page, set the anchor tag to have a class of active
 
 					//Set the page number text to current loop value
 					anchor.innerHTML = i;
-					//Append the anchor to the li element
-					list.appendChild(anchor);
-				//Append the list element to the unordered list	
-				ul.appendChild(list);	
+					
+					
 			}
 			//Now display the .pagination HTML, which is the ul we created up above
-		var pagination_div = document.createElement("div");
+		
 		pagination_div.className=".pagination";
 		pagination_div.innerHTML = ul;
 		console.log(pagination_div);
 			
-	}
+	
 
-	displayPage();		
+	
 
 
 
