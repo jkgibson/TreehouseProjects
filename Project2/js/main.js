@@ -4,21 +4,22 @@
 
 
 //When page loads, fire off our script
-$(document).ready(function() {
+
 	var endOfPage = document.getElementsByClassName('page')[0];
+	var students = document.getElementsByTagName("li");
+	var numStudents = students.length;
 
 		//Calculate the number of pages needed
-	function numberOfPagesNeeded() {
+	function numberOfPagesNeeded(numStudents) {
 		//Traverse the DOM and count how many li elements are in the .student-list class
 		//Store the count of list elements in a variable
-		var students = document.getElementsByTagName("li");
-		var numStudents = students.length;
+
 		//Divide the count result by 10 to get the number of pages
 		var numPages = Math.ceil(numStudents/10);
 		return numPages;
 	}
 
-	function hideAllStudents() {
+	function hideAllStudents(numStudents) {
 		//Iterate over every student item in the student list and hide them
 		for(var i = 0; i < numStudents; i++) {
 			students[i].style.display = "none";
@@ -32,6 +33,17 @@ $(document).ready(function() {
 		}
 	}
 
+	function clearActive(){
+		var pagesToClear = numberOfPagesNeeded;
+		for(var i = 0; i < pagesToClear; i++){
+			pagesToClear[i].classList.remove('class','active');
+		}
+	}
+
+function logIt() {
+	console.log('logged')
+};
+
 	//Create a pagination function to do the pagination
 	function paginator() {
 		var pagination_div = document.createElement("div");
@@ -40,12 +52,12 @@ $(document).ready(function() {
 		//If we are on the current page, set the anchor tag to have a class of active
  		//Iterate through the number of pages that we have
 		//Set the page number text to current loop value
-		for(var i = 0; i < numberOfPagesNeeded(); i++) {
+		for(var i = 0; i < numberOfPagesNeeded(numStudents); i++) {
 			//Create a list element
 			var list = document.createElement("li");
 			var anchor = document.createElement("a");
 			//Set attribute values for the anchor tag
-			anchor.setAttribute("href", "#")
+			anchor.setAttribute("href", "#");
 			//Set the page number text to current loop value
 			anchor.innerHTML = i;
 			//Append the anchor to the li element
@@ -53,16 +65,32 @@ $(document).ready(function() {
 			//Append the list element to the unordered list
 			ul.appendChild(list);
 		}
-		console.log(ul);
 		//Now display the .pagination HTML, which is the ul we created up above
 		pagination_div.appendChild(ul);
 		endOfPage.appendChild(pagination_div);
-
-	console.log(pagination_div);
-	}
+		var allElementsInDiv = document.querySelectorAll('ul','li', 'a');
+		allElementsInDiv.forEach(onActivePage);
+	};
 
 paginator();
-});
+
+function onActivePage(current){
+	current.onclick = function() {
+		hideAllStudents(numStudents);
+
+		clearActive();
+
+		current.classList.add('active');
+
+	}
+
+
+}
+
+
+
+
+
 
 
 
