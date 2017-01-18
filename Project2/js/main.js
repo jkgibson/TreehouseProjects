@@ -19,7 +19,7 @@
 		return numPages;
 	}
 
-	function hideAllStudents(numStudents) {
+	function hideAllStudents(numStudents, students) {
 		//Iterate over every student item in the student list and hide them
 		for(var i = 0; i < numStudents; i++) {
 			students[i].style.display = "none";
@@ -33,9 +33,9 @@
 		}
 	}
 
-	function clearActive(){
-		var pagesToClear = numberOfPagesNeeded;
-		for(var i = 0; i < pagesToClear; i++){
+	function clearActive(numStudents){
+		var pagesToClear;
+		for(var i = 0; i < numberOfPagesNeeded(numStudents); i++){
 			pagesToClear[i].classList.remove('class','active');
 		}
 	}
@@ -68,24 +68,26 @@ function logIt() {
 		//Now display the .pagination HTML, which is the ul we created up above
 		pagination_div.appendChild(ul);
 		endOfPage.appendChild(pagination_div);
-		var allElementsInDiv = document.querySelectorAll('ul','li', 'a');
-		allElementsInDiv.forEach(onActivePage);
+		var allAnchorsInDiv = document.querySelectorAll('a');
+		allAnchorsInDiv.forEach(onActivePage, numStudents);
 	};
 
 paginator();
 
 function onActivePage(current){
 	current.onclick = function() {
-		hideAllStudents(numStudents);
 
-		clearActive();
-
-		current.classList.add('active');
-
-	}
-
-
-}
+		//hideAllStudents(numStudents, students);
+		//if there are any active elements, clear them and add active to the currect element
+		//else just add active to the current element
+		var test = document.getElementsByClassName('active');
+		if(test[0]='active') {
+			clearActive(numStudents);
+		} else {
+			current.classList.add('active');
+		};
+	};
+};
 
 
 
