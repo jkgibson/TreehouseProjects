@@ -8,12 +8,11 @@
 	var endOfPage = document.getElementsByClassName('page')[0];
 	var students = document.getElementsByTagName("li");
 	var numStudents = students.length;
+	var currentPage = 1;
 
 		//Calculate the number of pages needed
 	function numberOfPagesNeeded(numStudents) {
-		//Traverse the DOM and count how many li elements are in the .student-list class
-		//Store the count of list elements in a variable
-
+		
 		//Divide the count result by 10 to get the number of pages
 		var numPages = Math.ceil(numStudents/10);
 		return numPages;
@@ -26,20 +25,14 @@
 		}
 	}
 
-	function showTenStudents() {
+	function showTenStudents(students) {
 		//Starting on the current page, uncover (display) ten items
 		for(var i = 0; i < 10; i++) {
 			students[i].style.display = "block";
 		}
 	}
 
-	function clearActive(numStudents){
-		var pagesToClear;
-		for(var i = 0; i < numberOfPagesNeeded(numStudents); i++){
-			pagesToClear[i].classList.remove('class','active');
-		}
-	}
-
+	
 function logIt() {
 	console.log('logged')
 };
@@ -68,26 +61,47 @@ function logIt() {
 		//Now display the .pagination HTML, which is the ul we created up above
 		pagination_div.appendChild(ul);
 		endOfPage.appendChild(pagination_div);
-		var allAnchorsInDiv = document.querySelectorAll('a');
-		allAnchorsInDiv.forEach(onActivePage, numStudents);
+
 	};
 
-paginator();
+	paginator();
 
-function onActivePage(current){
-	current.onclick = function() {
+	//need to functionalize this step right here
+	var allAnchorsInDiv = document.querySelectorAll('a');
 
-		//hideAllStudents(numStudents, students);
+	for(var i = 0; i < allAnchorsInDiv.length; i++) {
+    	allAnchorsInDiv[i].addEventListener("click", onActivePage);
+	};
+
+	
+	function onActivePage() {
+
+		hideAllStudents(numStudents, students);
 		//if there are any active elements, clear them and add active to the currect element
-		//else just add active to the current element
-		var test = document.getElementsByClassName('active');
-		if(test[0]='active') {
-			clearActive(numStudents);
-		} else {
-			current.classList.add('active');
+		for(var i = 0; i < allAnchorsInDiv.length; i++){
+			if(allAnchorsInDiv[i].classList = "active"){
+				allAnchorsInDiv[i].classList.remove("active")
+			};
 		};
+
+		this.classList.add('active');
+
+		//Now, we need to show 10 students, based on the current active page we are on
+		//How could we use modulus here
+		showTenStudents(students);
+
+		console.log(allAnchorsInDiv);
 	};
-};
+
+
+	
+
+
+
+
+
+
+
 
 
 
